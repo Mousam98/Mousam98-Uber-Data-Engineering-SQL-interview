@@ -1,3 +1,9 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'schema')))
+from spark import df
+
 df.createOrReplaceTempView('uber')
 
 query = "select pickup, drop, count(*) route_count, max(trip_date) last_trip_time from uber \
