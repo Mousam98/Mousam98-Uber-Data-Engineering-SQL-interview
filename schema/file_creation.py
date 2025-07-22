@@ -6,6 +6,8 @@ drop_locations = ["Tech Park", "University", "Hospital", "Stadium", "Old Town", 
 user = ['U100', 'U101', 'U102', 'U103', 'U104', 'U105', 'U106', 'U107', 'U108', 'U109', 'U110', 'U111', 'U112',
        'U113', 'U114', 'U115', 'U116', 'U117', 'U118', 'U119', 'U120']
 
+# this data has been created by an automated machine
+# to put our choices in the data, we have customized the data preparation later
 data = [
     (1001, "D001", "U100", 5, 12, "2025-07-01"),
     (1002, "D002", "U101", 4, 15, "2025-07-01"),
@@ -109,19 +111,22 @@ data = [
     (1100, "D003", "U199", 5, 8,  "2025-07-31")
 ]
 
+# feeding trip date-time randomly
 data_with_random_time = [
     (*entry[:-1], f"{entry[-1]} {random.randint(0,23):02}:{random.randint(0,59):02}:{random.randint(0,59):02}")
     for entry in data
 ]
 
+#feeding pickup and drop location randomly from our own choice
 new_data = [records + 
             (random.choice(pickup_locations), random.choice(drop_locations))
            for records in data_with_random_time]
 
+# feeding user data randomly
 user_updated_data = [(entry[0], entry[1], random.choice(user), *entry[3:])
                     for entry in new_data]
 
 
 df = pd.DataFrame(user_updated_data, 
                   columns = ['ride_id', 'driver_id', 'user_id', 'rating', 'trip_time', 'trip_date', 'pickup', 'drop'])
-df.to_csv('Interview Prep/uber_data.csv', index = False)
+df.to_csv('uber_data.csv', index = False)
