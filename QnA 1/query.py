@@ -1,3 +1,9 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'schema')))
+from spark import df
+
 df.createOrReplaceTempView('uber')
 query = 'select driver_id, sum(trip_time) total_trip_time, \
         avg(rating) avg_rating, count(*) total_trips\
